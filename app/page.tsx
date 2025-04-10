@@ -13,6 +13,8 @@ import { BuilderScore } from "./components/BuilderScore";
 interface ExtendedClientContext {
   name?: string;
   added?: boolean;
+  fid?: number;
+  clientFid?: number;
 }
 
 export default function App() {
@@ -49,9 +51,11 @@ export default function App() {
 
   const client = context?.client as ExtendedClientContext | undefined;
 
-  // Debug information
+  // Enhanced debug information
   console.log('MiniKit Context:', context);
   console.log('Client:', client);
+  console.log('Client FID:', client?.clientFid);
+  console.log('Is Frame Ready:', isFrameReady);
 
   return (
     <div className="flex flex-col min-h-screen font-sans text-[var(--app-foreground)] mini-app-theme from-[var(--app-background)] to-[var(--app-gray)]">
@@ -59,21 +63,26 @@ export default function App() {
         <header className="flex justify-between items-center mb-3 h-11">
           <div>
             {client ? (
-              <div className="flex items-center space-x-2">
+              <div className="flex flex-col space-y-2">
                 <div className="text-sm">
                   <span className="font-medium">@{client.name}</span>
                 </div>
-                {/* Debug display */}
+                {/* Enhanced debug display */}
                 <div className="text-xs text-[var(--app-foreground-muted)]">
-                  <pre className="whitespace-pre-wrap">
-                    {JSON.stringify(context?.client, null, 2)}
+                  <pre className="whitespace-pre-wrap overflow-x-auto">
+                    Client Data:
+                    {JSON.stringify({
+                      name: client.name,
+                      fid: client.fid,
+                      clientFid: client.clientFid,
+                      added: client.added
+                    }, null, 2)}
                   </pre>
                 </div>
               </div>
             ) : (
               <div className="text-sm text-[var(--app-foreground-muted)]">
                 Loading...
-                {/* Debug display for loading state */}
                 <div className="text-xs">
                   Context ready: {isFrameReady ? 'yes' : 'no'}
                 </div>
