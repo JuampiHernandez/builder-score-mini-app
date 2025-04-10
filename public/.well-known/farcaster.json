@@ -7,6 +7,8 @@
     "frame": {
       "version": "1",
       "name": "Builder Score",
+      "iconUrl": "https://builderscoreminiapp.vercel.app/images/icon.svg",
+      "homeUrl": "https://builderscoreminiapp.vercel.app",
       "image": {
         "url": "https://builderscoreminiapp.vercel.app/images/talent_svg_long.svg",
         "aspect_ratio": "1.91:1"
