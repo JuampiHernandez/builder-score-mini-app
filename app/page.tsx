@@ -22,6 +22,11 @@ import { Button } from "./components/DemoComponents";
 import { Icon } from "./components/DemoComponents";
 import { BuilderScore } from "./components/BuilderScore";
 
+interface ExtendedClientContext {
+  name?: string;
+  added?: boolean;
+}
+
 export default function App() {
   const { setFrameReady, isFrameReady, context } = useMiniKit();
   const addFrame = useAddFrame();
@@ -54,26 +59,24 @@ export default function App() {
     return null;
   }, [context, handleAddFrame]);
 
+  const client = context?.client as ExtendedClientContext | undefined;
+
   return (
     <div className="flex flex-col min-h-screen font-sans text-[var(--app-foreground)] mini-app-theme from-[var(--app-background)] to-[var(--app-gray)]">
       <div className="w-full max-w-md mx-auto px-4 py-3">
         <header className="flex justify-between items-center mb-3 h-11">
           <div>
-            <div className="flex items-center space-x-2">
-              <Wallet className="z-10">
-                <ConnectWallet>
-                  <Name className="text-inherit" />
-                </ConnectWallet>
-                <WalletDropdown>
-                  <Identity className="px-4 pt-3 pb-2" hasCopyAddressOnClick>
-                    <Avatar />
-                    <Name />
-                    <Address />
-                  </Identity>
-                  <WalletDropdownDisconnect />
-                </WalletDropdown>
-              </Wallet>
-            </div>
+            {client ? (
+              <div className="flex items-center space-x-2">
+                <div className="text-sm">
+                  <span className="font-medium">@{client.name}</span>
+                </div>
+              </div>
+            ) : (
+              <div className="text-sm text-[var(--app-foreground-muted)]">
+                Loading...
+              </div>
+            )}
           </div>
           <div>{saveFrameButton}</div>
         </header>
