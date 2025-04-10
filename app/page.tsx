@@ -10,7 +10,6 @@ import {
   Identity,
   Address,
   Avatar,
-  EthBalance,
 } from "@coinbase/onchainkit/identity";
 import {
   ConnectWallet,
@@ -18,17 +17,13 @@ import {
   WalletDropdown,
   WalletDropdownDisconnect,
 } from "@coinbase/onchainkit/wallet";
-import { useEffect, useMemo, useState, useCallback } from "react";
+import { useEffect, useMemo, useCallback } from "react";
 import { Button } from "./components/DemoComponents";
 import { Icon } from "./components/DemoComponents";
-import { Home } from "./components/DemoComponents";
-import { Features } from "./components/DemoComponents";
+import { BuilderScore } from "./components/BuilderScore";
 
 export default function App() {
   const { setFrameReady, isFrameReady, context } = useMiniKit();
-  const [frameAdded, setFrameAdded] = useState(false);
-  const [activeTab, setActiveTab] = useState("home");
-
   const addFrame = useAddFrame();
   const openUrl = useOpenUrl();
 
@@ -39,8 +34,7 @@ export default function App() {
   }, [setFrameReady, isFrameReady]);
 
   const handleAddFrame = useCallback(async () => {
-    const frameAdded = await addFrame();
-    setFrameAdded(Boolean(frameAdded));
+    await addFrame();
   }, [addFrame]);
 
   const saveFrameButton = useMemo(() => {
@@ -57,18 +51,8 @@ export default function App() {
         </Button>
       );
     }
-
-    if (frameAdded) {
-      return (
-        <div className="flex items-center space-x-1 text-sm font-medium text-[#0052FF] animate-fade-out">
-          <Icon name="check" size="sm" className="text-[#0052FF]" />
-          <span>Saved</span>
-        </div>
-      );
-    }
-
     return null;
-  }, [context, frameAdded, handleAddFrame]);
+  }, [context, handleAddFrame]);
 
   return (
     <div className="flex flex-col min-h-screen font-sans text-[var(--app-foreground)] mini-app-theme from-[var(--app-background)] to-[var(--app-gray)]">
@@ -85,7 +69,6 @@ export default function App() {
                     <Avatar />
                     <Name />
                     <Address />
-                    <EthBalance />
                   </Identity>
                   <WalletDropdownDisconnect />
                 </WalletDropdown>
@@ -96,8 +79,15 @@ export default function App() {
         </header>
 
         <main className="flex-1">
-          {activeTab === "home" && <Home setActiveTab={setActiveTab} />}
-          {activeTab === "features" && <Features setActiveTab={setActiveTab} />}
+          <div className="space-y-6">
+            <div className="bg-[var(--app-card-bg)] backdrop-blur-md rounded-xl shadow-lg border border-[var(--app-card-border)] p-6">
+              <h1 className="text-2xl font-bold mb-4 text-center">Builder Score</h1>
+              <p className="text-[var(--app-foreground-muted)] mb-6 text-center">
+                Check your Builder Score from Talent Protocol
+              </p>
+              <BuilderScore />
+            </div>
+          </div>
         </main>
 
         <footer className="mt-2 pt-4 flex justify-center">
@@ -107,7 +97,7 @@ export default function App() {
             className="text-[var(--ock-text-foreground-muted)] text-xs"
             onClick={() => openUrl("https://base.org/builders/minikit")}
           >
-            Built on Base with MiniKit
+            Built with MiniKit
           </Button>
         </footer>
       </div>
