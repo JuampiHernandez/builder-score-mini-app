@@ -5,23 +5,14 @@
       "signature": "MHg0N2M0OTc5YmU5ZjAxYmFmMmQ2YTMxNGViMjdhNDJiYjAyY2I0MzgzNzgzMjg5NWNmNWRmY2FhMjcwZWNiOGIyMjMwMTc2YjU4YWU0YThkYWVkODBmOTkzYTEzNTVjODczZWJkNjAyZDY3YjFkOGY1Y2U2YTQ1MDU2YTBhYWQ5MTFj"
     },
     "frame": {
-      "version": "1",
-      "name": "Builder Score",
-      "iconUrl": "https://builderscoreminiapp.vercel.app/images/icon.svg",
-      "homeUrl": "https://builderscoreminiapp.vercel.app",
-      "image": {
-        "url": "https://builderscoreminiapp.vercel.app/images/talent_svg_long.svg",
-        "aspect_ratio": "1.91:1"
-      },
+      "image": "https://builderscoreminiapp.vercel.app/images/talent_svg_long.svg",
+      "version": "vNext",
       "buttons": [
         {
           "label": "Check Score",
           "action": "post"
         }
       ],
-      "post_url": "https://builderscoreminiapp.vercel.app/api/frame",
-      "input": {
-        "text": "Enter your farcaster username"
-      }
+      "post_url": "https://builderscoreminiapp.vercel.app/api/frame"
     }
   }
