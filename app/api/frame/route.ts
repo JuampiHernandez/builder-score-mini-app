@@ -28,14 +28,16 @@ export async function POST(req: NextRequest) {
 
     return new Response(
       JSON.stringify({
-        image: {
-          url: "https://builderscoreminiapp.vercel.app/images/talent_svg_long.svg",
-          aspect_ratio: "1.91:1"
-        },
-        buttons: [
+        version: 1,
+        frames: [
           {
-            label: `Your Builder Score: ${score}`,
-            action: "post"
+            image: "https://builderscoreminiapp.vercel.app/images/talent_svg_long.svg",
+            buttons: [
+              {
+                label: `Your Builder Score: ${score}`,
+                action: "post"
+              }
+            ]
           }
         ]
       }),
@@ -50,14 +52,16 @@ export async function POST(req: NextRequest) {
     console.error('Error in frame endpoint:', error);
     return new Response(
       JSON.stringify({
-        image: {
-          url: "https://builderscoreminiapp.vercel.app/images/talent_svg_long.svg",
-          aspect_ratio: "1.91:1"
-        },
-        buttons: [
+        version: 1,
+        frames: [
           {
-            label: "Error fetching score. Try again?",
-            action: "post"
+            image: "https://builderscoreminiapp.vercel.app/images/talent_svg_long.svg",
+            buttons: [
+              {
+                label: "Error fetching score. Try again?",
+                action: "post"
+              }
+            ]
           }
         ]
       }),
