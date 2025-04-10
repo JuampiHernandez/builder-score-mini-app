@@ -111,12 +111,12 @@ export default function App() {
             className="flex items-center space-x-2 text-xs text-[var(--app-foreground-muted)] hover:text-[var(--app-accent)] transition-colors"
           >
             <Image
-              src="/images/talent-protocol-logo.svg"
+              src="/images/talent_svg_long.svg"
               alt="Talent Protocol"
-              width={20}
-              height={20}
+              width={122}
+              height={18}
+              className="opacity-75 hover:opacity-100 transition-opacity"
             />
-            <span>Powered by Talent Protocol</span>
           </a>
           <Button
             variant="ghost"
