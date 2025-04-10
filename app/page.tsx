@@ -1,13 +1,7 @@
 "use client";
 
-import {
-  useMiniKit,
-  useAddFrame,
-  useOpenUrl,
-} from "@coinbase/onchainkit/minikit";
-import { useEffect, useMemo } from "react";
-import { Button } from "./components/DemoComponents";
-import { Icon } from "./components/DemoComponents";
+import { useMiniKit } from "@coinbase/onchainkit/minikit";
+import { useEffect } from "react";
 import { BuilderScore } from "./components/BuilderScore";
 import Image from 'next/image';
 
