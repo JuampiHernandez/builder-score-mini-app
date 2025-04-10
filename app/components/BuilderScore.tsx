@@ -56,28 +56,51 @@ export function BuilderScore() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <Button
         onClick={checkBuilderScore}
         disabled={loading}
         variant="primary"
         size="lg"
-        className="w-full"
+        className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium py-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
       >
-        {loading ? 'Checking...' : 'Check Builder Score'}
+        {loading ? (
+          <div className="flex items-center justify-center space-x-2">
+            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span>Checking Score...</span>
+          </div>
+        ) : 'Check Builder Score'}
       </Button>
 
       {error && (
-        <div className="text-red-500 text-sm text-center">
-          {error}
+        <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded-md">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <p className="text-sm text-red-700">{error}</p>
+            </div>
+          </div>
         </div>
       )}
 
       {score && !error && (
-        <div className="text-center space-y-2">
-          <h3 className="text-2xl font-bold text-[var(--app-accent)]">
-            Builder Score: {score.score}
-          </h3>
+        <div className="text-center space-y-4">
+          <div className="relative inline-flex items-center justify-center">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-lg opacity-50"></div>
+            <div className="relative bg-[var(--app-card-bg)] rounded-full p-8">
+              <h3 className="text-4xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+                {score.score}
+              </h3>
+              <p className="text-sm font-medium text-[var(--app-foreground)]">Builder Score</p>
+            </div>
+          </div>
           <p className="text-sm text-[var(--app-foreground-muted)]">
             Last updated: {formatDate(score.lastCalculatedAt)}
           </p>
