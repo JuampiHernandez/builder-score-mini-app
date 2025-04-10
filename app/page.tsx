@@ -49,6 +49,10 @@ export default function App() {
 
   const client = context?.client as ExtendedClientContext | undefined;
 
+  // Debug information
+  console.log('MiniKit Context:', context);
+  console.log('Client:', client);
+
   return (
     <div className="flex flex-col min-h-screen font-sans text-[var(--app-foreground)] mini-app-theme from-[var(--app-background)] to-[var(--app-gray)]">
       <div className="w-full max-w-md mx-auto px-4 py-3">
@@ -59,10 +63,20 @@ export default function App() {
                 <div className="text-sm">
                   <span className="font-medium">@{client.name}</span>
                 </div>
+                {/* Debug display */}
+                <div className="text-xs text-[var(--app-foreground-muted)]">
+                  <pre className="whitespace-pre-wrap">
+                    {JSON.stringify(context?.client, null, 2)}
+                  </pre>
+                </div>
               </div>
             ) : (
               <div className="text-sm text-[var(--app-foreground-muted)]">
                 Loading...
+                {/* Debug display for loading state */}
+                <div className="text-xs">
+                  Context ready: {isFrameReady ? 'yes' : 'no'}
+                </div>
               </div>
             )}
           </div>
