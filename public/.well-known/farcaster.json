@@ -6,16 +6,17 @@
     },
     "frame": {
       "image": "https://builderscoreminiapp.vercel.app/images/talent_svg_long.svg",
-      "version": "1",
+      "version": "vNext",
       "name": "Builder Score",
-      "iconUrl": "https://builderscoreminiapp.vercel.app/images/icon.svg",
-      "homeUrl": "https://builderscoreminiapp.vercel.app",
       "buttons": [
         {
           "label": "Check Score",
           "action": "post"
         }
       ],
-      "post_url": "https://builderscoreminiapp.vercel.app/api/frame"
+      "post_url": "https://builderscoreminiapp.vercel.app/api/frame",
+      "input": {
+        "text": "Check your Builder Score"
+      }
     }
   }

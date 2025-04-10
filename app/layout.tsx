@@ -14,13 +14,6 @@ export const viewport: Viewport = {
 };
 
 export async function generateMetadata(): Promise<Metadata> {
-  const frameMetadata = {
-    "fc:frame": "vNext",
-    "fc:frame:image": splashImageUrl,
-    "fc:frame:button:1": "Check Score",
-    "fc:frame:post_url": `${projectUrl}/api/frame`
-  }
-
   return {
     title: projectName,
     description: "Check your Builder Score on Talent Protocol",
@@ -30,7 +23,12 @@ export async function generateMetadata(): Promise<Metadata> {
       images: [splashImageUrl],
     },
     other: {
-      ...frameMetadata
+      "fc:frame": "vNext",
+      "fc:frame:image": splashImageUrl,
+      "fc:frame:button:1": "Check Score",
+      "fc:frame:post_url": `${projectUrl}/api/frame`,
+      "fc:frame:version": "vNext",
+      "fc:frame:input:text": "Check your Builder Score"
     },
   };
 }
