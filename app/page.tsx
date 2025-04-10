@@ -10,13 +10,15 @@ import { Button } from "./components/DemoComponents";
 import { Icon } from "./components/DemoComponents";
 import { BuilderScore } from "./components/BuilderScore";
 
-interface ExtendedClientContext {
-  name?: string;
-  fid?: number;
-  username?: string;
-  displayName?: string;
-  pfp?: string;
-  added?: boolean;
+interface UserContext {
+  fid: number;
+  username: string;
+  displayName: string;
+  pfpUrl: string;
+  location?: {
+    placeId: string;
+    description: string;
+  };
 }
 
 export default function App() {
@@ -51,24 +53,25 @@ export default function App() {
     return null;
   }, [context, handleAddFrame]);
 
-  const client = context?.client as ExtendedClientContext | undefined;
+  const user = context?.user as UserContext | undefined;
 
   // Debug logs
   useEffect(() => {
     console.log('Full MiniKit Context:', context);
     console.log('Frame Ready Status:', isFrameReady);
-  }, [context, isFrameReady]);
+    console.log('User:', user);
+  }, [context, isFrameReady, user]);
 
   return (
     <div className="flex flex-col min-h-screen font-sans text-[var(--app-foreground)] mini-app-theme from-[var(--app-background)] to-[var(--app-gray)]">
       <div className="w-full max-w-md mx-auto px-4 py-3">
         <header className="flex justify-between items-center mb-3 h-11">
           <div>
-            {client ? (
+            {user ? (
               <div className="flex items-center space-x-2">
                 <div className="text-sm">
                   <span className="font-medium">
-                    {client.name ? `@${client.name}` : 'Connected User'}
+                    @{user.username}
                   </span>
                 </div>
               </div>
@@ -102,9 +105,9 @@ export default function App() {
                   </pre>
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium mb-2">Client Data</h3>
+                  <h3 className="text-sm font-medium mb-2">User Data</h3>
                   <pre className="text-xs bg-black/10 p-2 rounded overflow-x-auto">
-                    {JSON.stringify(client, null, 2)}
+                    {JSON.stringify(user, null, 2)}
                   </pre>
                 </div>
                 <div>

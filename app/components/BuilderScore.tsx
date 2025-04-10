@@ -4,9 +4,10 @@ import { useState } from 'react';
 import { Button } from './DemoComponents';
 import { useMiniKit } from "@coinbase/onchainkit/minikit";
 
-interface ExtendedClientContext {
-  name?: string;
-  added?: boolean;
+interface UserContext {
+  fid: number;
+  username: string;
+  displayName: string;
 }
 
 export function BuilderScore() {
@@ -16,8 +17,8 @@ export function BuilderScore() {
   const [error, setError] = useState<string | null>(null);
 
   const checkBuilderScore = async () => {
-    const client = context?.client as ExtendedClientContext | undefined;
-    if (!client?.name) {
+    const user = context?.user as UserContext | undefined;
+    if (!user?.fid) {
       setError("Please connect your Farcaster account first");
       return;
     }
@@ -26,7 +27,7 @@ export function BuilderScore() {
     setError(null);
 
     try {
-      const response = await fetch(`/api/builder-score?username=${client.name}`);
+      const response = await fetch(`/api/builder-score?account_id=${user.fid}&account_source=farcaster`);
       const data = await response.json();
       
       if (!response.ok) {
