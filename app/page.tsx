@@ -64,19 +64,19 @@ export default function App() {
             {user ? (
               <div className="flex items-center space-x-2">
                 {user.pfpUrl && (
-                  <Image
-                    src={user.pfpUrl}
-                    alt={user.displayName}
-                    width={24}
-                    height={24}
-                    className="rounded-full"
-                  />
+                  <div className="w-6 h-6 rounded-full overflow-hidden">
+                    <Image
+                      src={user.pfpUrl}
+                      alt={user.username}
+                      width={24}
+                      height={24}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 )}
-                <div className="text-sm">
-                  <span className="font-medium">
-                    @{user.username}
-                  </span>
-                </div>
+                <span className="text-sm font-medium">
+                  @{user.username}
+                </span>
               </div>
             ) : (
               <div className="text-sm text-[var(--app-foreground-muted)]">
@@ -111,7 +111,7 @@ export default function App() {
             className="flex items-center space-x-2 text-xs text-[var(--app-foreground-muted)] hover:text-[var(--app-accent)] transition-colors"
           >
             <Image
-              src="/images/talent_svg_long.svg"
+              src="/talent_svg_long.svg"
               alt="Talent Protocol"
               width={122}
               height={18}
