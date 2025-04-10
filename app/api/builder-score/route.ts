@@ -6,11 +6,11 @@ const TALENT_PROTOCOL_API_KEY = process.env.TALENT_PROTOCOL_API_KEY;
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const accountId = searchParams.get('account_id');
+    const id = searchParams.get('id');
     const accountSource = searchParams.get('account_source');
 
-    if (!accountId || !accountSource) {
-      return NextResponse.json({ error: 'Account ID and source are required' }, { status: 400 });
+    if (!id || !accountSource) {
+      return NextResponse.json({ error: 'ID and account source are required' }, { status: 400 });
     }
 
     if (!TALENT_PROTOCOL_API_KEY) {
@@ -20,25 +20,30 @@ export async function GET(request: Request) {
       );
     }
 
-    // Get the score data directly using the account identifier
+    // Get the score data using the correct endpoint parameters
     const scoreResponse = await fetch(
-      `${TALENT_PROTOCOL_API_URL}/score?account_id=${accountId}&account_source=${accountSource}`,
+      `${TALENT_PROTOCOL_API_URL}/score?id=${id}&account_source=${accountSource}`,
       {
         headers: {
+          'Accept': 'application/json',
           'X-API-KEY': TALENT_PROTOCOL_API_KEY,
         },
       }
     );
 
     if (!scoreResponse.ok) {
+      const errorData = await scoreResponse.json().catch(() => ({}));
       return NextResponse.json(
-        { error: 'Failed to fetch score data' },
+        { error: errorData.message || 'Failed to fetch score data' },
         { status: scoreResponse.status }
       );
     }
 
     const scoreData = await scoreResponse.json();
-    return NextResponse.json({ score: scoreData.builder_score });
+    return NextResponse.json({ 
+      score: scoreData.score.points,
+      lastCalculatedAt: scoreData.score.last_calculated_at
+    });
   } catch (error) {
     console.error('Error fetching builder score:', error);
     return NextResponse.json(

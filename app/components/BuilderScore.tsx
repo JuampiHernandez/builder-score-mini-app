@@ -10,9 +10,14 @@ interface UserContext {
   displayName: string;
 }
 
+interface BuilderScoreResponse {
+  score: number;
+  lastCalculatedAt: string;
+}
+
 export function BuilderScore() {
   const { context } = useMiniKit();
-  const [score, setScore] = useState<number | null>(null);
+  const [score, setScore] = useState<BuilderScoreResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,19 +32,27 @@ export function BuilderScore() {
     setError(null);
 
     try {
-      const response = await fetch(`/api/builder-score?account_id=${user.fid}&account_source=farcaster`);
+      const response = await fetch(`/api/builder-score?id=${user.fid}&account_source=farcaster`);
       const data = await response.json();
       
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to fetch builder score');
+        throw new Error(data.error || 'Failed to fetch builder score');
       }
 
-      setScore(data.score);
+      setScore(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch builder score');
     } finally {
       setLoading(false);
     }
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString(undefined, {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
   };
 
   return (
@@ -60,11 +73,14 @@ export function BuilderScore() {
         </div>
       )}
 
-      {score !== null && !error && (
-        <div className="text-center">
+      {score && !error && (
+        <div className="text-center space-y-2">
           <h3 className="text-2xl font-bold text-[var(--app-accent)]">
-            Builder Score: {score}
+            Builder Score: {score.score}
           </h3>
+          <p className="text-sm text-[var(--app-foreground-muted)]">
+            Last updated: {formatDate(score.lastCalculatedAt)}
+          </p>
         </div>
       )}
     </div>
