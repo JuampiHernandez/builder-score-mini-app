@@ -46,6 +46,11 @@ export function BuilderScore() {
     }
   };
 
+  const handleShare = () => {
+    const shareText = `🏗️ My Builder Score: ${score?.score}\n\nCheck yours at builderscoreminiapp.vercel.app`;
+    window.open(`https://warpcast.com/~/compose?text=${encodeURIComponent(shareText)}`, '_blank');
+  };
+
   return (
     <div className="space-y-6">
       <Button
@@ -63,7 +68,7 @@ export function BuilderScore() {
             </svg>
             <span>Checking Score...</span>
           </div>
-        ) : 'Check Builder Score'}
+        ) : 'Check Score'}
       </Button>
 
       {error && (
@@ -82,7 +87,7 @@ export function BuilderScore() {
       )}
 
       {score && !error && (
-        <div className="text-center">
+        <div className="text-center space-y-6">
           <div className="relative inline-flex items-center justify-center">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-lg opacity-50"></div>
             <div className="relative bg-[var(--app-card-bg)] rounded-full p-8">
@@ -91,6 +96,15 @@ export function BuilderScore() {
               </h3>
             </div>
           </div>
+          
+          <Button
+            onClick={handleShare}
+            variant="secondary"
+            size="lg"
+            className="w-full border border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white font-medium py-3 rounded-lg transition-all duration-200"
+          >
+            Share on Farcaster
+          </Button>
         </div>
       )}
     </div>

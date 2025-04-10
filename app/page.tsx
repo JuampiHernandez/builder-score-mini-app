@@ -4,9 +4,8 @@ import {
   useMiniKit,
   useAddFrame,
   useOpenUrl,
-  usePrimaryButton,
 } from "@coinbase/onchainkit/minikit";
-import { useEffect, useMemo, useCallback } from "react";
+import { useEffect, useMemo } from "react";
 import { Button } from "./components/DemoComponents";
 import { Icon } from "./components/DemoComponents";
 import { BuilderScore } from "./components/BuilderScore";
@@ -25,40 +24,12 @@ interface UserContext {
 
 export default function App() {
   const { setFrameReady, isFrameReady, context } = useMiniKit();
-  const addFrame = useAddFrame();
-  const openUrl = useOpenUrl();
-  const primaryButton = usePrimaryButton();
 
   useEffect(() => {
     if (!isFrameReady) {
       setFrameReady();
     }
   }, [setFrameReady, isFrameReady]);
-
-  const handleShare = useCallback(async () => {
-    if (primaryButton?.shareOnSocial) {
-      await primaryButton.shareOnSocial({
-        text: `Check out my Builder Score on @talentprotocol!`
-      });
-    }
-  }, [primaryButton]);
-
-  const saveFrameButton = useMemo(() => {
-    if (context && !context.client.added) {
-      return (
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={handleShare}
-          className="text-[var(--app-accent)] p-4"
-          icon={<Icon name="arrow-right" size="sm" />}
-        >
-          Share Score
-        </Button>
-      );
-    }
-    return null;
-  }, [context, handleShare]);
 
   const user = context?.user as UserContext | undefined;
 
@@ -68,29 +39,15 @@ export default function App() {
         <header className="flex justify-between items-center mb-3 h-11">
           <div>
             {user ? (
-              <div className="flex items-center space-x-2">
-                {user.pfpUrl && (
-                  <div className="w-6 h-6 rounded-full overflow-hidden">
-                    <Image
-                      src={user.pfpUrl}
-                      alt={user.username}
-                      width={24}
-                      height={24}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
-                <span className="text-sm font-medium">
-                  @{user.username}
-                </span>
-              </div>
+              <span className="text-sm font-medium">
+                @{user.username}
+              </span>
             ) : (
               <div className="text-sm text-[var(--app-foreground-muted)]">
                 Loading...
               </div>
             )}
           </div>
-          <div>{saveFrameButton}</div>
         </header>
 
         <main className="flex-1">
@@ -124,14 +81,6 @@ export default function App() {
               className="opacity-75 hover:opacity-100 transition-opacity"
             />
           </a>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-[var(--ock-text-foreground-muted)] text-xs"
-            onClick={() => openUrl("https://base.org/builders/minikit")}
-          >
-            Built with MiniKit
-          </Button>
         </footer>
       </div>
     </div>
