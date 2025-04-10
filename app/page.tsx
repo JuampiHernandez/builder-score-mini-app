@@ -12,9 +12,11 @@ import { BuilderScore } from "./components/BuilderScore";
 
 interface ExtendedClientContext {
   name?: string;
-  added?: boolean;
   fid?: number;
-  clientFid?: number;
+  username?: string;
+  displayName?: string;
+  pfp?: string;
+  added?: boolean;
 }
 
 export default function App() {
@@ -51,11 +53,11 @@ export default function App() {
 
   const client = context?.client as ExtendedClientContext | undefined;
 
-  // Enhanced debug information
-  console.log('MiniKit Context:', context);
-  console.log('Client:', client);
-  console.log('Client FID:', client?.clientFid);
-  console.log('Is Frame Ready:', isFrameReady);
+  // Debug logs
+  useEffect(() => {
+    console.log('Full MiniKit Context:', context);
+    console.log('Frame Ready Status:', isFrameReady);
+  }, [context, isFrameReady]);
 
   return (
     <div className="flex flex-col min-h-screen font-sans text-[var(--app-foreground)] mini-app-theme from-[var(--app-background)] to-[var(--app-gray)]">
@@ -63,29 +65,16 @@ export default function App() {
         <header className="flex justify-between items-center mb-3 h-11">
           <div>
             {client ? (
-              <div className="flex flex-col space-y-2">
+              <div className="flex items-center space-x-2">
                 <div className="text-sm">
-                  <span className="font-medium">@{client.name}</span>
-                </div>
-                {/* Enhanced debug display */}
-                <div className="text-xs text-[var(--app-foreground-muted)]">
-                  <pre className="whitespace-pre-wrap overflow-x-auto">
-                    Client Data:
-                    {JSON.stringify({
-                      name: client.name,
-                      fid: client.fid,
-                      clientFid: client.clientFid,
-                      added: client.added
-                    }, null, 2)}
-                  </pre>
+                  <span className="font-medium">
+                    {client.name ? `@${client.name}` : 'Connected User'}
+                  </span>
                 </div>
               </div>
             ) : (
               <div className="text-sm text-[var(--app-foreground-muted)]">
                 Loading...
-                <div className="text-xs">
-                  Context ready: {isFrameReady ? 'yes' : 'no'}
-                </div>
               </div>
             )}
           </div>
@@ -100,6 +89,31 @@ export default function App() {
                 Check your Builder Score from Talent Protocol
               </p>
               <BuilderScore />
+            </div>
+
+            {/* Debug Information Panel */}
+            <div className="bg-[var(--app-card-bg)] backdrop-blur-md rounded-xl shadow-lg border border-[var(--app-card-border)] p-6">
+              <h2 className="text-lg font-semibold mb-4">Debug Information</h2>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-sm font-medium mb-2">Frame Status</h3>
+                  <pre className="text-xs bg-black/10 p-2 rounded overflow-x-auto">
+                    {JSON.stringify({ isFrameReady }, null, 2)}
+                  </pre>
+                </div>
+                <div>
+                  <h3 className="text-sm font-medium mb-2">Client Data</h3>
+                  <pre className="text-xs bg-black/10 p-2 rounded overflow-x-auto">
+                    {JSON.stringify(client, null, 2)}
+                  </pre>
+                </div>
+                <div>
+                  <h3 className="text-sm font-medium mb-2">Full Context</h3>
+                  <pre className="text-xs bg-black/10 p-2 rounded overflow-x-auto">
+                    {JSON.stringify(context, null, 2)}
+                  </pre>
+                </div>
+              </div>
             </div>
           </div>
         </main>
