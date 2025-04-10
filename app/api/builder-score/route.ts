@@ -41,8 +41,7 @@ export async function GET(request: Request) {
 
     const scoreData = await scoreResponse.json();
     return NextResponse.json({ 
-      score: scoreData.score.points,
-      lastCalculatedAt: scoreData.score.last_calculated_at
+      score: scoreData.score.points
     });
   } catch (error) {
     console.error('Error fetching builder score:', error);

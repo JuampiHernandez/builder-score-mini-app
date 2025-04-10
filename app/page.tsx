@@ -4,6 +4,7 @@ import {
   useMiniKit,
   useAddFrame,
   useOpenUrl,
+  usePrimaryButton,
 } from "@coinbase/onchainkit/minikit";
 import { useEffect, useMemo, useCallback } from "react";
 import { Button } from "./components/DemoComponents";
@@ -26,6 +27,7 @@ export default function App() {
   const { setFrameReady, isFrameReady, context } = useMiniKit();
   const addFrame = useAddFrame();
   const openUrl = useOpenUrl();
+  const primaryButton = usePrimaryButton();
 
   useEffect(() => {
     if (!isFrameReady) {
@@ -33,9 +35,13 @@ export default function App() {
     }
   }, [setFrameReady, isFrameReady]);
 
-  const handleAddFrame = useCallback(async () => {
-    await addFrame();
-  }, [addFrame]);
+  const handleShare = useCallback(async () => {
+    if (primaryButton?.shareOnSocial) {
+      await primaryButton.shareOnSocial({
+        text: `Check out my Builder Score on @talentprotocol!`
+      });
+    }
+  }, [primaryButton]);
 
   const saveFrameButton = useMemo(() => {
     if (context && !context.client.added) {
@@ -43,16 +49,16 @@ export default function App() {
         <Button
           variant="ghost"
           size="sm"
-          onClick={handleAddFrame}
+          onClick={handleShare}
           className="text-[var(--app-accent)] p-4"
-          icon={<Icon name="plus" size="sm" />}
+          icon={<Icon name="arrow-right" size="sm" />}
         >
-          Save Frame
+          Share Score
         </Button>
       );
     }
     return null;
-  }, [context, handleAddFrame]);
+  }, [context, handleShare]);
 
   const user = context?.user as UserContext | undefined;
 
@@ -95,7 +101,7 @@ export default function App() {
                   Builder Score
                 </h1>
                 <p className="text-[var(--app-foreground-muted)] mb-6 text-center text-sm">
-                  Check your Builder Score from Talent Protocol
+                  Check your Builder Score V2
                 </p>
               </div>
               <BuilderScore />

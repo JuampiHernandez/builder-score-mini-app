@@ -12,7 +12,6 @@ interface UserContext {
 
 interface BuilderScoreResponse {
   score: number;
-  lastCalculatedAt: string;
 }
 
 export function BuilderScore() {
@@ -45,14 +44,6 @@ export function BuilderScore() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString(undefined, {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
   };
 
   return (
@@ -91,19 +82,15 @@ export function BuilderScore() {
       )}
 
       {score && !error && (
-        <div className="text-center space-y-4">
+        <div className="text-center">
           <div className="relative inline-flex items-center justify-center">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-lg opacity-50"></div>
             <div className="relative bg-[var(--app-card-bg)] rounded-full p-8">
               <h3 className="text-4xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
                 {score.score}
               </h3>
-              <p className="text-sm font-medium text-[var(--app-foreground)]">Builder Score</p>
             </div>
           </div>
-          <p className="text-sm text-[var(--app-foreground-muted)]">
-            Last updated: {formatDate(score.lastCalculatedAt)}
-          </p>
         </div>
       )}
     </div>
