@@ -5,17 +5,17 @@
       "signature": "MHg0N2M0OTc5YmU5ZjAxYmFmMmQ2YTMxNGViMjdhNDJiYjAyY2I0MzgzNzgzMjg5NWNmNWRmY2FhMjcwZWNiOGIyMjMwMTc2YjU4YWU0YThkYWVkODBmOTkzYTEzNTVjODczZWJkNjAyZDY3YjFkOGY1Y2U2YTQ1MDU2YTBhYWQ5MTFj"
     },
     "frame": {
-      "image": "https://builderscoreminiapp.vercel.app/images/talent_svg_long.svg",
-      "version": "1",
-      "name": "Builder Score",
-      "iconUrl": "https://builderscoreminiapp.vercel.app/images/icon.svg",
-      "homeUrl": "https://builderscoreminiapp.vercel.app",
-      "buttons": [
-        {
-          "label": "Check Score",
-          "action": "post"
+      "version": "next",
+      "imageUrl": "https://builderscoreminiapp.vercel.app/talent_svg_long.svg",
+      "aspectRatio": "3:2",
+      "button": {
+        "title": "Check Builder Score",
+        "action": {
+          "type": "launch_frame",
+          "name": "Builder Score",
+          "url": "https://builderscoreminiapp.vercel.app",
+          "splashImageUrl": "https://builderscoreminiapp.vercel.app/talent_svg_long.svg"
         }
-      ],
-      "post_url": "https://builderscoreminiapp.vercel.app/api/frame"
+      }
     }
 }
