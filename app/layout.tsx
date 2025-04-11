@@ -6,7 +6,7 @@ import { Providers } from './providers';
 
 const projectName = "Builder Score Mini App"
 const projectUrl = "https://builderscoreminiapp.vercel.app"
-const splashImageUrl = "https://builderscoreminiapp.vercel.app/frame.svg"
+const splashImageUrl = "https://builderscoreminiapp.vercel.app/logo_svg_frame.svg"
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const frameMetadata = {
     "fc:frame": JSON.stringify({
       version: "next",
-      imageUrl: "https://builderscoreminiapp.vercel.app/frame.svg",
+      imageUrl: "https://builderscoreminiapp.vercel.app/logo_svg_frame.svg",
       aspectRatio: "3:2",
       button: {
         title: "Check Builder Score",
