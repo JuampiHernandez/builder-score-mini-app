@@ -6,7 +6,20 @@ import { Providers } from './providers';
 
 const projectName = "Builder Score Mini App"
 const projectUrl = "https://builderscoreminiapp.vercel.app"
-const splashImageUrl = "https://builderscoreminiapp.vercel.app/logo_svg_frame.svg"
+const frameContent = JSON.stringify({
+  version: "next",
+  imageUrl: "https://builderscoreminiapp.vercel.app/logo_svg_frame2.svg",
+  aspectRatio: "3:2",
+  button: {
+    title: "Check Builder Score",
+    action: {
+      type: "launch_frame",
+      name: "Builder Score",
+      url: "https://builderscoreminiapp.vercel.app",
+      splashImageUrl: "https://builderscoreminiapp.vercel.app/logo_svg_frame2.svg"
+    }
+  }
+})
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -14,33 +27,16 @@ export const viewport: Viewport = {
 };
 
 export async function generateMetadata(): Promise<Metadata> {
-  const frameMetadata = {
-    "fc:frame": JSON.stringify({
-      version: "next",
-      imageUrl: "https://builderscoreminiapp.vercel.app/logo_svg_frame.svg",
-      aspectRatio: "3:2",
-      button: {
-        title: "Check Builder Score",
-        action: {
-          type: "launch_frame",
-          name: "Builder Score",
-          url: projectUrl,
-          splashImageUrl: splashImageUrl
-        }
-      }
-    })
-  }
-
   return {
     title: projectName,
     description: "Check your Builder Score on Talent Protocol",
     openGraph: {
       title: projectName,
       description: "Check your Builder Score on Talent Protocol",
-      images: [splashImageUrl],
+      images: ["https://builderscoreminiapp.vercel.app/logo_svg_frame2.svg"],
     },
     other: {
-      ...frameMetadata
+      "fc:frame": frameContent
     },
   };
 }
@@ -54,6 +50,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="fc:frame" content={frameContent} />
       </head>
       <body className="bg-background">
         <Providers>{children}</Providers>
