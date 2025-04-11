@@ -6,7 +6,7 @@
     },
     "frame": {
       "version": "next",
-      "imageUrl": "https://builderscoreminiapp.vercel.app/talent_svg_long.svg",
+      "imageUrl": "https://builderscoreminiapp.vercel.app/frame.svg",
       "aspectRatio": "3:2",
       "button": {
         "title": "Check Builder Score",
@@ -14,7 +14,7 @@
           "type": "launch_frame",
           "name": "Builder Score",
           "url": "https://builderscoreminiapp.vercel.app",
-          "splashImageUrl": "https://builderscoreminiapp.vercel.app/talent_svg_long.svg"
+          "splashImageUrl": "https://builderscoreminiapp.vercel.app/frame.svg"
         }
       }
     }
