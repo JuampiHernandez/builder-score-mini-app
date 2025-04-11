@@ -6,6 +6,9 @@
     },
     "frame": {
       "version": "next",
+      "name": "Builder Score Checker",
+      "iconUrl": "https://builderscoreminiapp.vercel.app/icon.svg",
+      "homeUrl": "https://builderscoreminiapp.vercel.app",
       "imageUrl": "https://builderscoreminiapp.vercel.app/frame.svg",
       "aspectRatio": "3:2",
       "button": {
