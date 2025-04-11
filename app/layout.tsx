@@ -5,7 +5,6 @@ import './globals.css';
 import { Providers } from './providers';
 
 const projectName = "Builder Score Mini App"
-const projectUrl = "https://builderscoreminiapp.vercel.app"
 const frameContent = JSON.stringify({
   version: "next",
   imageUrl: "https://builderscoreminiapp.vercel.app/logo_svg_frame2.svg",
